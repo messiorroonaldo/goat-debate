@@ -1,11 +1,493 @@
-:root{--bg:#080b12;--panel:#111722;--text:#f4f5f7;--muted:#9ba5b4;--lime:#d6ff4f;--line:#26303e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}.top,footer{display:flex;justify-content:space-between;align-items:center;padding:23px 6%;border-bottom:1px solid var(--line)}.brand{font-weight:950;letter-spacing:2px;color:white;text-decoration:none}.brand span{color:var(--lime)}.live,.refresh{font-size:10px;letter-spacing:1.5px;color:var(--muted)}.live i{display:inline-block;width:7px;height:7px;background:var(--lime);border-radius:50%;margin-right:8px}.hero{max-width:1100px;margin:75px auto 90px;padding:0 24px;text-align:center}.eyebrow{font-size:10px;letter-spacing:3px;color:var(--lime);font-weight:800}h1{font-size:clamp(42px,7vw,82px);line-height:.92;letter-spacing:-4px;margin:22px 0}h1 em{font-style:normal;color:var(--lime)}.intro{color:var(--muted);margin:20px 0 45px}.players{display:grid;grid-template-columns:1fr 70px 1fr;gap:18px;align-items:center;text-align:left}.player{background:var(--panel);border:1px solid var(--line);padding:12px}.player-art{height:260px;position:relative;overflow:hidden;display:flex;align-items:end;padding:18px;background:linear-gradient(145deg,#23314a,#101723)}.art-ronaldo{background:linear-gradient(145deg,#49251f,#15151b)}.number{font-size:clamp(100px,18vw,190px);font-weight:950;line-height:.8;opacity:.23;letter-spacing:-12px}.country{position:absolute;right:15px;top:15px;font-size:9px;letter-spacing:2px}.player-info{display:flex;justify-content:space-between;align-items:center;padding:17px 5px}.player-info h2{font-size:29px;line-height:.92;margin:0;letter-spacing:-1px}.player-info p{font-size:9px;color:var(--muted);letter-spacing:1.5px}.tag{font-weight:900;color:var(--lime);font-size:13px}.vote{width:100%;border:0;background:var(--lime);color:#10140a;padding:17px;font-weight:900;letter-spacing:1px;cursor:pointer;display:flex;justify-content:space-between}.vote:hover{background:#e6ff91}.vote:disabled{opacity:.6;cursor:wait}.versus{font-weight:950;font-size:19px;color:var(--muted);text-align:center}.price-note{font-size:10px;letter-spacing:1.6px;color:var(--muted);margin-top:24px}.price-note strong{color:white}.results{max-width:900px;margin:0 auto 90px;padding:35px 24px;background:var(--panel);border:1px solid var(--line)}.section-heading{display:flex;justify-content:space-between;align-items:end}.section-heading h2{font-size:28px;margin:8px 0}.score{display:flex;justify-content:space-between;align-items:end;margin:35px 0 15px}.score div{display:flex;flex-direction:column;gap:5px}.score strong{font-size:35px}.score span{font-size:10px;letter-spacing:2px;color:var(--muted)}.score .total{text-align:center;align-items:center}.score .total strong{font-size:24px}.score .right{text-align:right;align-items:end}.bar{height:13px;background:#313846;display:flex;overflow:hidden}.bar #messiBar{width:0;background:var(--lime);transition:width .4s}.bar #ronaldoBar{flex:1;background:#d46b54}.fine{font-size:11px;color:var(--muted);margin-top:17px}footer{border-top:1px solid var(--line);border-bottom:0;color:var(--muted);font-size:10px;letter-spacing:1px}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#202b3a;padding:13px 18px;border:1px solid #39485b;display:none;max-width:90%;font-size:13px}.toast.show{display:block}@media(max-width:650px){.top{padding:18px 20px}.hero{margin:48px auto 65px}.players{grid-template-columns:1fr;gap:14px}.versus{padding:2px}.player-art{height:190px}.player-info h2{font-size:25px}.results{margin:0 12px 60px;padding:23px 16px}.refresh{max-width:110px;text-align:right;line-height:1.5}.score strong{font-size:27px}footer{padding:20px;gap:15px;flex-wrap:wrap}}.art-messi {
+:root {
+  --bg: #080b12;
+  --panel: #111722;
+  --text: #f4f5f7;
+  --muted: #9ba5b4;
+  --lime: #ffffff;
+  --line: #26303e;
+
+  --messi-blue: #28aaff;
+  --messi-white: #f4faff;
+
+  --ronaldo-red: #ff263f;
+  --ronaldo-green: #20c878;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
+}
+
+.top,
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 23px 6%;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-weight: 950;
+  letter-spacing: 2px;
+  color: white;
+  text-decoration: none;
+}
+
+.brand span {
+  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f, #20c878);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 12px rgba(40, 170, 255, .25);
+}
+
+.live,
+.refresh {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+.live i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: linear-gradient(135deg, #28aaff, #ff263f);
+  border-radius: 50%;
+  margin-right: 8px;
+  box-shadow: 0 0 10px #28aaff, 0 0 15px #ff263f;
+}
+
+.hero {
+  max-width: 1100px;
+  margin: 75px auto 90px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f, #20c878);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+h1 {
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: .92;
+  letter-spacing: -4px;
+  margin: 22px 0;
+}
+
+h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f, #20c878);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 18px rgba(40, 170, 255, .2);
+}
+
+.intro {
+  color: var(--muted);
+  margin: 20px 0 45px;
+}
+
+.players {
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr;
+  gap: 18px;
+  align-items: center;
+  text-align: left;
+}
+
+.player {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 12px;
+  transition: .3s ease;
+}
+
+.player:first-child {
+  border-color: rgba(40, 170, 255, .65);
+  box-shadow: 0 0 18px rgba(40, 170, 255, .12);
+}
+
+.player:first-child:hover {
+  box-shadow: 0 0 28px rgba(40, 170, 255, .3);
+}
+
+.player:last-child {
+  border-color: rgba(255, 38, 63, .65);
+  box-shadow: 0 0 18px rgba(255, 38, 63, .12);
+}
+
+.player:last-child:hover {
+  box-shadow: 0 0 28px rgba(255, 38, 63, .3);
+}
+
+.player-art {
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: end;
+  padding: 18px;
+  background: linear-gradient(145deg, #23314a, #101723);
+}
+
+.art-messi {
   background:
-    linear-gradient(to top, rgba(0,0,0,.45), transparent),
+    linear-gradient(to top, rgba(0, 0, 0, .45), transparent),
     url("/images/messi.jpg") center 25% / cover no-repeat;
+  border-bottom: 2px solid var(--messi-blue);
+  box-shadow: inset 0 -25px 35px rgba(40, 170, 255, .2);
 }
 
 .art-ronaldo {
   background:
-    linear-gradient(to top, rgba(0,0,0,.45), transparent),
+    linear-gradient(to top, rgba(0, 0, 0, .45), transparent),
     url("/images/ronaldo.jpg") center 25% / cover no-repeat;
+  border-bottom: 2px solid var(--ronaldo-red);
+  box-shadow: inset 0 -25px 35px rgba(255, 38, 63, .2);
+}
+
+.number {
+  font-size: clamp(100px, 18vw, 190px);
+  font-weight: 950;
+  line-height: .8;
+  opacity: .23;
+  letter-spacing: -12px;
+}
+
+.country {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 5px;
+}
+
+.player-info h2 {
+  font-size: 29px;
+  line-height: .92;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.player:first-child .player-info h2 {
+  color: var(--messi-white);
+  text-shadow: 0 0 12px var(--messi-blue);
+}
+
+.player:last-child .player-info h2 {
+  color: white;
+  text-shadow: 0 0 12px var(--ronaldo-red);
+}
+
+.player-info p {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+}
+
+.tag {
+  font-weight: 900;
+  font-size: 13px;
+  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f, #20c878);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.vote {
+  width: 100%;
+  border: 1px solid transparent;
+  padding: 17px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  transition: .25s ease;
+}
+
+/* BOUTON MESSI : BLEU ET BLANC */
+.player:first-child .vote {
+  background: linear-gradient(110deg, #0879e8, #28aaff, #eaf8ff);
+  color: #061426;
+  border-color: #72d4ff;
+  box-shadow: 0 0 12px rgba(40, 170, 255, .4);
+}
+
+.player:first-child .vote:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #28aaff, 0 0 35px rgba(40, 170, 255, .5);
+}
+
+/* BOUTON RONALDO : ROUGE ET VERT */
+.player:last-child .vote {
+  background: linear-gradient(110deg, #c90025, #ff263f 65%, #168d52);
+  color: white;
+  border-color: #ff6575;
+  box-shadow: 0 0 12px rgba(255, 38, 63, .4);
+}
+
+.player:last-child .vote:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #ff263f, 0 0 35px rgba(32, 200, 120, .4);
+}
+
+.vote:disabled {
+  opacity: .6;
+  cursor: wait;
+  transform: none;
+}
+
+.versus {
+  font-weight: 950;
+  font-size: 19px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.price-note {
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  color: var(--muted);
+  margin-top: 24px;
+}
+
+.price-note strong {
+  color: white;
+}
+
+.results {
+  max-width: 900px;
+  margin: 0 auto 90px;
+  padding: 35px 24px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.section-heading h2 {
+  font-size: 28px;
+  margin: 8px 0;
+}
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin: 35px 0 15px;
+}
+
+.score div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.score strong {
+  font-size: 35px;
+}
+
+.score span {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+.score .total {
+  text-align: center;
+  align-items: center;
+}
+
+.score .total strong {
+  font-size: 24px;
+}
+
+.score .right {
+  text-align: right;
+  align-items: end;
+}
+
+.score > div:first-child strong {
+  color: var(--messi-blue);
+  text-shadow: 0 0 12px rgba(40, 170, 255, .6);
+}
+
+.score .right strong {
+  color: var(--ronaldo-red);
+  text-shadow: 0 0 12px rgba(255, 38, 63, .6);
+}
+
+.bar {
+  height: 13px;
+  background: #313846;
+  display: flex;
+  overflow: hidden;
+}
+
+.bar #messiBar {
+  width: 0;
+  background: linear-gradient(90deg, #0879e8, #28aaff, #eaf8ff);
+  box-shadow: 0 0 12px #28aaff;
+  transition: width .4s;
+}
+
+.bar #ronaldoBar {
+  flex: 1;
+  background: linear-gradient(90deg, #ff263f, #d40028, #168d52);
+  box-shadow: 0 0 12px #ff263f;
+}
+
+.fine {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 17px;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  border-bottom: 0;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #202b3a;
+  padding: 13px 18px;
+  border: 1px solid #39485b;
+  display: none;
+  max-width: 90%;
+  font-size: 13px;
+}
+
+.toast.show {
+  display: block;
+}
+
+/* CHAMP DU MONTANT */
+.amount-box {
+  max-width: 380px;
+  margin: 0 auto 35px;
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid #35465c;
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: 0 0 18px rgba(40, 170, 255, .08);
+}
+
+.amount-box label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.amount-box input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #52647a;
+  border-radius: 6px;
+  background: #080b12;
+  color: white;
+  font-size: 20px;
+  outline: none;
+}
+
+.amount-box input:focus {
+  border-color: var(--messi-blue);
+  box-shadow: 0 0 12px rgba(40, 170, 255, .3);
+}
+
+.amount-box small {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 650px) {
+  .top {
+    padding: 18px 20px;
+  }
+
+  .hero {
+    margin: 48px auto 65px;
+  }
+
+  .players {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .versus {
+    padding: 2px;
+  }
+
+  .player-art {
+    height: 190px;
+  }
+
+  .player-info h2 {
+    font-size: 25px;
+  }
+
+  .results {
+    margin: 0 12px 60px;
+    padding: 23px 16px;
+  }
+
+  .refresh {
+    max-width: 110px;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  .score strong {
+    font-size: 27px;
+  }
+
+  footer {
+    padding: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
 }
