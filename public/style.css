@@ -1,6 +1,6 @@
 :root {
   --bg: #080b12;
-  --panel: #111722;
+  --panel: rgba(17, 23, 34, 0.88);
   --text: #f4f5f7;
   --muted: #9ba5b4;
   --lime: #ffffff;
@@ -19,7 +19,20 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: #080b12;
+
+  background-image:
+    linear-gradient(
+      rgba(8, 11, 18, 0.48),
+      rgba(8, 11, 18, 0.75)
+    ),
+    url("/goat-background.png");
+
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+
   color: var(--text);
   font-family: Inter, Arial, sans-serif;
 }
@@ -116,6 +129,7 @@ h1 em {
   border: 1px solid var(--line);
   padding: 12px;
   transition: .3s ease;
+  backdrop-filter: blur(5px);
 }
 
 .player:first-child {
@@ -230,6 +244,7 @@ h1 em {
 }
 
 /* BOUTON MESSI : BLEU ET BLANC */
+
 .player:first-child .vote {
   background: linear-gradient(110deg, #0879e8, #28aaff, #eaf8ff);
   color: #061426;
@@ -243,6 +258,7 @@ h1 em {
 }
 
 /* BOUTON RONALDO : ROUGE ET VERT */
+
 .player:last-child .vote {
   background: linear-gradient(110deg, #c90025, #ff263f 65%, #168d52);
   color: white;
@@ -285,6 +301,7 @@ h1 em {
   padding: 35px 24px;
   background: var(--panel);
   border: 1px solid var(--line);
+  backdrop-filter: blur(5px);
 }
 
 .section-heading {
@@ -397,6 +414,7 @@ footer {
 }
 
 /* CHAMP DU MONTANT */
+
 .amount-box {
   max-width: 380px;
   margin: 0 auto 35px;
@@ -406,6 +424,7 @@ footer {
   border-radius: 10px;
   text-align: left;
   box-shadow: 0 0 18px rgba(40, 170, 255, .08);
+  backdrop-filter: blur(5px);
 }
 
 .amount-box label {
@@ -444,7 +463,12 @@ footer {
 }
 
 /* RESPONSIVE MOBILE */
+
 @media (max-width: 650px) {
+  body {
+    background-attachment: scroll;
+  }
+
   .top {
     padding: 18px 20px;
   }
