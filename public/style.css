@@ -3,7 +3,6 @@
   --panel: rgba(17, 23, 34, 0.88);
   --text: #f4f5f7;
   --muted: #9ba5b4;
-  --lime: #ffffff;
   --line: #26303e;
 
   --messi-blue: #28aaff;
@@ -11,22 +10,35 @@
 
   --ronaldo-red: #ff263f;
   --ronaldo-green: #20c878;
+
+  --neon: linear-gradient(
+    90deg,
+    #28aaff,
+    #ffffff,
+    #ff263f,
+    #20c878
+  );
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  background-color: #080b12;
+  min-height: 100vh;
+  background-color: var(--bg);
 
   background-image:
     linear-gradient(
-      rgba(8, 11, 18, 0.48),
-      rgba(8, 11, 18, 0.75)
+      rgba(8, 11, 18, 0.38),
+      rgba(8, 11, 18, 0.78)
     ),
-    url("/goat-background.png");
+    url("/goat-background.png.png");
 
   background-size: cover;
   background-position: center top;
@@ -37,13 +49,13 @@ body {
   font-family: Inter, Arial, sans-serif;
 }
 
-.top,
-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 23px 6%;
-  border-bottom: 1px solid var(--line);
+/* TEXTE NEON */
+
+.brand,
+.eyebrow,
+.tag,
+h1 em {
+  position: relative;
 }
 
 .brand {
@@ -54,11 +66,11 @@ footer {
 }
 
 .brand span {
-  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f, #20c878);
+  background: var(--neon);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 12px rgba(40, 170, 255, .25);
+  text-shadow: 0 0 15px rgba(40, 170, 255, .2);
 }
 
 .live,
@@ -72,11 +84,26 @@ footer {
   display: inline-block;
   width: 7px;
   height: 7px;
-  background: linear-gradient(135deg, #28aaff, #ff263f);
+  background: var(--neon);
   border-radius: 50%;
   margin-right: 8px;
-  box-shadow: 0 0 10px #28aaff, 0 0 15px #ff263f;
+  box-shadow: 0 0 12px #28aaff, 0 0 15px #ff263f;
 }
+
+/* HEADER */
+
+.top,
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 23px 6%;
+  border-bottom: 1px solid var(--line);
+  background: rgba(8, 11, 18, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+/* TITRE */
 
 .hero {
   max-width: 1100px;
@@ -89,7 +116,7 @@ footer {
   font-size: 10px;
   letter-spacing: 3px;
   font-weight: 800;
-  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f, #20c878);
+  background: var(--neon);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -104,17 +131,19 @@ h1 {
 
 h1 em {
   font-style: normal;
-  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f, #20c878);
+  background: var(--neon);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 18px rgba(40, 170, 255, .2);
+  filter: drop-shadow(0 0 12px rgba(40, 170, 255, .25));
 }
 
 .intro {
   color: var(--muted);
   margin: 20px 0 45px;
 }
+
+/* JOUEURS */
 
 .players {
   display: grid;
@@ -129,26 +158,30 @@ h1 em {
   border: 1px solid var(--line);
   padding: 12px;
   transition: .3s ease;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px);
 }
 
 .player:first-child {
   border-color: rgba(40, 170, 255, .65);
-  box-shadow: 0 0 18px rgba(40, 170, 255, .12);
+  box-shadow: 0 0 18px rgba(40, 170, 255, .15);
 }
 
 .player:first-child:hover {
-  box-shadow: 0 0 28px rgba(40, 170, 255, .3);
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(40, 170, 255, .35);
 }
 
 .player:last-child {
   border-color: rgba(255, 38, 63, .65);
-  box-shadow: 0 0 18px rgba(255, 38, 63, .12);
+  box-shadow: 0 0 18px rgba(255, 38, 63, .15);
 }
 
 .player:last-child:hover {
-  box-shadow: 0 0 28px rgba(255, 38, 63, .3);
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(255, 38, 63, .35);
 }
+
+/* PHOTOS */
 
 .player-art {
   height: 260px;
@@ -164,6 +197,7 @@ h1 em {
   background:
     linear-gradient(to top, rgba(0, 0, 0, .45), transparent),
     url("/images/messi.jpg") center 25% / cover no-repeat;
+
   border-bottom: 2px solid var(--messi-blue);
   box-shadow: inset 0 -25px 35px rgba(40, 170, 255, .2);
 }
@@ -172,6 +206,7 @@ h1 em {
   background:
     linear-gradient(to top, rgba(0, 0, 0, .45), transparent),
     url("/images/ronaldo.jpg") center 25% / cover no-repeat;
+
   border-bottom: 2px solid var(--ronaldo-red);
   box-shadow: inset 0 -25px 35px rgba(255, 38, 63, .2);
 }
@@ -191,6 +226,8 @@ h1 em {
   font-size: 9px;
   letter-spacing: 2px;
 }
+
+/* INFORMATIONS JOUEURS */
 
 .player-info {
   display: flex;
@@ -225,11 +262,13 @@ h1 em {
 .tag {
   font-weight: 900;
   font-size: 13px;
-  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f, #20c878);
+  background: var(--neon);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
+
+/* BOUTONS DE VOTE */
 
 .vote {
   width: 100%;
@@ -243,10 +282,16 @@ h1 em {
   transition: .25s ease;
 }
 
-/* BOUTON MESSI : BLEU ET BLANC */
+/* MESSI : BLEU ET BLANC */
 
 .player:first-child .vote {
-  background: linear-gradient(110deg, #0879e8, #28aaff, #eaf8ff);
+  background: linear-gradient(
+    110deg,
+    #0879e8,
+    #28aaff,
+    #eaf8ff
+  );
+
   color: #061426;
   border-color: #72d4ff;
   box-shadow: 0 0 12px rgba(40, 170, 255, .4);
@@ -254,13 +299,21 @@ h1 em {
 
 .player:first-child .vote:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 20px #28aaff, 0 0 35px rgba(40, 170, 255, .5);
+  box-shadow:
+    0 0 20px #28aaff,
+    0 0 35px rgba(40, 170, 255, .5);
 }
 
-/* BOUTON RONALDO : ROUGE ET VERT */
+/* RONALDO : ROUGE ET VERT */
 
 .player:last-child .vote {
-  background: linear-gradient(110deg, #c90025, #ff263f 65%, #168d52);
+  background: linear-gradient(
+    110deg,
+    #c90025,
+    #ff263f 65%,
+    #168d52
+  );
+
   color: white;
   border-color: #ff6575;
   box-shadow: 0 0 12px rgba(255, 38, 63, .4);
@@ -268,7 +321,9 @@ h1 em {
 
 .player:last-child .vote:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 20px #ff263f, 0 0 35px rgba(32, 200, 120, .4);
+  box-shadow:
+    0 0 20px #ff263f,
+    0 0 35px rgba(32, 200, 120, .4);
 }
 
 .vote:disabled {
@@ -280,9 +335,12 @@ h1 em {
 .versus {
   font-weight: 950;
   font-size: 19px;
-  color: var(--muted);
+  color: white;
   text-align: center;
+  text-shadow: 0 0 12px #ff263f;
 }
+
+/* MONTANT DU VOTE */
 
 .price-note {
   font-size: 10px;
@@ -295,13 +353,64 @@ h1 em {
   color: white;
 }
 
+/* CHAMP DU MONTANT */
+
+.amount-box {
+  max-width: 380px;
+  margin: 0 auto 35px;
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid #35465c;
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: 0 0 18px rgba(40, 170, 255, .08);
+  backdrop-filter: blur(8px);
+}
+
+.amount-box label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  background: var(--neon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.amount-box input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #52647a;
+  border-radius: 6px;
+  background: #080b12;
+  color: white;
+  font-size: 20px;
+  outline: none;
+}
+
+.amount-box input:focus {
+  border-color: var(--messi-blue);
+  box-shadow: 0 0 12px rgba(40, 170, 255, .3);
+}
+
+.amount-box small {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* RESULTATS */
+
 .results {
   max-width: 900px;
   margin: 0 auto 90px;
   padding: 35px 24px;
   background: var(--panel);
   border: 1px solid var(--line);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px);
 }
 
 .section-heading {
@@ -352,6 +461,8 @@ h1 em {
   align-items: end;
 }
 
+/* COULEURS DES SCORES */
+
 .score > div:first-child strong {
   color: var(--messi-blue);
   text-shadow: 0 0 12px rgba(40, 170, 255, .6);
@@ -362,6 +473,8 @@ h1 em {
   text-shadow: 0 0 12px rgba(255, 38, 63, .6);
 }
 
+/* BARRE DES RESULTATS */
+
 .bar {
   height: 13px;
   background: #313846;
@@ -371,14 +484,24 @@ h1 em {
 
 .bar #messiBar {
   width: 0;
-  background: linear-gradient(90deg, #0879e8, #28aaff, #eaf8ff);
+  background: linear-gradient(
+    90deg,
+    #0879e8,
+    #28aaff,
+    #eaf8ff
+  );
   box-shadow: 0 0 12px #28aaff;
   transition: width .4s;
 }
 
 .bar #ronaldoBar {
   flex: 1;
-  background: linear-gradient(90deg, #ff263f, #d40028, #168d52);
+  background: linear-gradient(
+    90deg,
+    #ff263f,
+    #d40028,
+    #168d52
+  );
   box-shadow: 0 0 12px #ff263f;
 }
 
@@ -388,6 +511,8 @@ h1 em {
   margin-top: 17px;
 }
 
+/* FOOTER */
+
 footer {
   border-top: 1px solid var(--line);
   border-bottom: 0;
@@ -395,6 +520,8 @@ footer {
   font-size: 10px;
   letter-spacing: 1px;
 }
+
+/* NOTIFICATIONS */
 
 .toast {
   position: fixed;
@@ -407,64 +534,17 @@ footer {
   display: none;
   max-width: 90%;
   font-size: 13px;
+  z-index: 1000;
 }
 
 .toast.show {
   display: block;
 }
 
-/* CHAMP DU MONTANT */
-
-.amount-box {
-  max-width: 380px;
-  margin: 0 auto 35px;
-  padding: 18px;
-  background: var(--panel);
-  border: 1px solid #35465c;
-  border-radius: 10px;
-  text-align: left;
-  box-shadow: 0 0 18px rgba(40, 170, 255, .08);
-  backdrop-filter: blur(5px);
-}
-
-.amount-box label {
-  display: block;
-  margin-bottom: 12px;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  background: linear-gradient(90deg, #28aaff, #ffffff, #ff263f);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.amount-box input {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #52647a;
-  border-radius: 6px;
-  background: #080b12;
-  color: white;
-  font-size: 20px;
-  outline: none;
-}
-
-.amount-box input:focus {
-  border-color: var(--messi-blue);
-  box-shadow: 0 0 12px rgba(40, 170, 255, .3);
-}
-
-.amount-box small {
-  display: block;
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 11px;
-}
-
 /* RESPONSIVE MOBILE */
 
 @media (max-width: 650px) {
+
   body {
     background-attachment: scroll;
   }
