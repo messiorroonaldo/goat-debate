@@ -1,0 +1,4 @@
+node_modules/ 
+.env 
+votes.sqlite* 
+.env.txt 

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Le grand débat : Messi ou Ronaldo ? Votez pour 0,50 €.">
+  <title>THE GOAT DEBATE — Messi vs Ronaldo</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="top"><a class="brand" href="/">GOAT<span>DEBATE</span></a><span class="live"><i></i> VOTES EN DIRECT</span></header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">LE DÉBAT N'A JAMAIS ÉTÉ CLOS</p>
+      <h1>WHO IS THE<br><em>GREATEST</em> OF ALL TIME?</h1>
+      <p class="intro">Deux légendes. Une seule question. À toi de trancher.</p>
+      <div class="players">
+        <article class="player messi">
+          <div class="player-art art-messi"><span class="number">10</span><span class="country">ARGENTINA</span></div>
+          <div class="player-info"><div><h2>LIONEL<br>MESSI</h2><p>LA PULGA · ARGENTINE</p></div><span class="tag">LM10</span></div>
+          <button class="vote" data-player="messi">VOTER MESSI <b>→</b></button>
+        </article>
+        <div class="versus">VS</div>
+        <article class="player ronaldo">
+          <div class="player-art art-ronaldo"><span class="number">7</span><span class="country">PORTUGAL</span></div>
+          <div class="player-info"><div><h2>CRISTIANO<br>RONALDO</h2><p>CR7 · PORTUGAL</p></div><span class="tag">CR7</span></div>
+          <button class="vote" data-player="ronaldo">VOTER RONALDO <b>→</b></button>
+        </article>
+      </div>
+      <p class="price-note">UN VOTE = <strong>0,50 €</strong> · PAIEMENT SÉCURISÉ</p>
+    </section>
+    <section class="results">
+      <div class="section-heading"><div><p class="eyebrow">LE VERDICT DU PUBLIC</p><h2>LES RÉSULTATS</h2></div><span class="refresh">MIS À JOUR AUTOMATIQUEMENT</span></div>
+      <div class="score"><div><strong id="messiPct">0%</strong><span>MESSI</span></div><div class="total"><strong id="total">0</strong><span>VOTES VALIDÉS</span></div><div class="right"><strong id="ronaldoPct">0%</strong><span>RONALDO</span></div></div>
+      <div class="bar"><div id="messiBar"></div><div id="ronaldoBar"></div></div>
+      <p class="fine">Seuls les paiements confirmés sont comptabilisés. Un paiement annulé ne crée aucun vote.</p>
+    </section>
+  </main>
+  <footer><span>GOAT DEBATE © 2026</span><span>Un débat sportif, des votes transparents.</span></footer>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/app.js"></script>
+</body></html>
