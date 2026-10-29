@@ -595,3 +595,59 @@ footer {
     flex-wrap: wrap;
   }
 }
+
+/* ===== HISTOIRE DES DEUX GOAT ===== */
+.career-section { max-width:1100px; margin:0 auto 100px; padding:55px 24px; background:rgba(8,11,18,.72); border:1px solid rgba(255,255,255,.13); backdrop-filter:blur(12px); }
+.career-heading { text-align:center; max-width:720px; margin:0 auto 32px; }
+.career-heading h2 { font-size:clamp(32px,5vw,56px); line-height:.98; margin:14px 0; letter-spacing:-2px; }
+.career-heading h2 span { background:var(--neon); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.career-intro { color:var(--muted); line-height:1.7; }
+.career-tabs { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:35px 0 28px; }
+.career-tab { padding:17px 12px; border:1px solid rgba(255,255,255,.2); color:white; background:rgba(255,255,255,.06); font-weight:900; letter-spacing:1px; cursor:pointer; transition:.25s; }
+.career-tab:hover { transform:translateY(-2px); }
+.messi-tab.active { background:linear-gradient(100deg,#0879e8,#28aaff,#eaf8ff); color:#061426; border-color:#8bdcff; box-shadow:0 0 22px rgba(40,170,255,.3); }
+.ronaldo-tab.active { background:linear-gradient(100deg,#c90025,#ff263f 65%,#168d52); color:white; border-color:#ff6575; box-shadow:0 0 22px rgba(255,38,63,.3); }
+.career-story { animation:careerAppear .35s ease; }
+.career-story[hidden] { display:none !important; }
+@keyframes careerAppear { from {opacity:0;transform:translateY(8px)} to {opacity:1;transform:translateY(0)} }
+.story-hero { display:grid; grid-template-columns:minmax(220px,.85fr) 1.15fr; min-height:300px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.13); overflow:hidden; }
+.story-hero > img { width:100%; height:100%; min-height:300px; object-fit:cover; object-position:center 25%; }
+.story-hero-copy { padding:clamp(22px,4vw,42px); align-self:center; }
+.story-kicker,.timeline-date,.achievement-card span { font-size:10px; font-weight:900; letter-spacing:2px; color:#7ccaff; }
+.ronaldo-story .story-kicker,.ronaldo-story .timeline-date,.ronaldo-story .achievement-card span { color:#ff7887; }
+.story-hero h3 { font-size:clamp(28px,4vw,43px); margin:13px 0; }
+.story-hero p,.timeline-card p,.achievement-card p { color:#c2cad5; line-height:1.75; font-size:13px; }
+.story-facts { display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
+.story-facts span { padding:7px 10px; background:rgba(255,255,255,.08); border-radius:30px; font-size:11px; }
+.story-section-title { margin:42px 0 20px; }
+.story-section-title > span { color:var(--muted); font-size:10px; letter-spacing:2px; font-weight:900; }
+.story-section-title h3 { margin:8px 0; font-size:25px; }
+.timeline { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+.timeline-card { display:grid; grid-template-columns:145px 1fr; gap:16px; padding:12px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.1); align-items:start; }
+.timeline-card img { width:145px; height:150px; object-fit:cover; }
+.timeline-card h4,.achievement-card h4 { margin:8px 0; font-size:16px; }
+.timeline-card p { margin:0; font-size:12px; }
+.messi-story .timeline-card { border-left:2px solid var(--messi-blue); }
+.ronaldo-story .timeline-card { border-left:2px solid var(--ronaldo-red); }
+.achievement-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
+.achievement-card { background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.1); overflow:hidden; }
+.achievement-card img { width:100%; height:180px; object-fit:cover; display:block; }
+.achievement-card div { padding:17px; }
+.achievement-card p { margin:0; font-size:12px; }
+.story-note { color:var(--muted); font-size:11px; line-height:1.6; margin-top:25px; }
+@media(max-width:760px) {
+ .career-section { margin:0 12px 65px; padding:35px 14px; }
+ .story-hero { grid-template-columns:1fr; }
+ .story-hero > img { height:230px; min-height:230px; }
+ .timeline { grid-template-columns:1fr; }
+ .achievement-grid { grid-template-columns:1fr; }
+ .achievement-card img { height:220px; }
+}
+@media(max-width:460px) {
+ .career-tabs { grid-template-columns:1fr; }
+ .career-tab { font-size:11px; }
+ .timeline-card { grid-template-columns:105px 1fr; gap:11px; }
+ .timeline-card img { width:105px; height:125px; }
+ .timeline-card h4 { font-size:14px; }
+ .timeline-card p { font-size:11px; }
+}
