@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Le grand débat : Messi ou Ronaldo ? Votez pour 1 €.">
+  <title>THE GOAT DEBATE — Messi vs Ronaldo</title>
+  <link rel="stylesheet" href="/style.css">
+
+<style>
+.trophy-toggle {
+  display:block;
+  width:100%;
+  margin:18px 0 10px;
+  padding:13px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:8px;
+  color:white;
+  font-weight:bold;
+  font-size:13px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.messi .trophy-toggle:hover {background:#1765bd;}
+.ronaldo .trophy-toggle:hover {background:#bd202b;}
+
+.trophy-toggle span {
+  display:inline-block;
+  margin-left:8px;
+  transition:transform .3s;
+}
+
+.trophy-toggle[aria-expanded="true"] span {
+  transform:rotate(180deg);
+}
+
+.trophy-panel {
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition:max-height .7s ease,opacity .4s ease;
+}
+
+.trophy-panel.open {
+  max-height:1800px;
+  opacity:1;
+}
+
+.trophy-content {
+  padding:15px;
+  margin-bottom:15px;
+  background:rgba(0,0,0,.35);
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.12);
+}
+
+.trophy-content h3 {
+  margin:0 0 15px;
+  font-size:16px;
+}
+
+.category-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:15px;
+}
+
+.category-btn,.year-btn {
+  padding:9px 12px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:6px;
+  background:rgba(255,255,255,.06);
+  color:white;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:bold;
+  transition:.25s;
+}
+
+.category-btn:hover,.year-btn:hover {
+  background:rgba(255,255,255,.18);
+}
+
+.messi .category-btn.active,
+.messi .year-btn.active {background:#1765bd;}
+
+.ronaldo .category-btn.active,
+.ronaldo .year-btn.active {background:#bd202b;}
+
+.year-list {
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:5px 2px 12px;
+}
+
+.year-btn {
+  flex-shrink:0;
+  min-width:65px;
+}
+
+.trophy-detail {
+  min-height:130px;
+  padding:17px;
+  margin-top:8px;
+  background:rgba(255,255,255,.06);
+  border-radius:6px;
+  border-left:3px solid #aaa;
+  animation:appear .35s ease;
+}
+
+.messi .trophy-detail {border-left-color:#65baff;}
+.ronaldo .trophy-detail {border-left-color:#ff7373;}
+
+.trophy-detail h4 {
+  margin:0 0 10px;
+  font-size:17px;
+}
+
+.trophy-detail p {
+  font-size:13px;
+  line-height:1.7;
+  opacity:.85;
+  margin:0;
+}
+
+.trophy-label {
+  display:inline-block;
+  margin-bottom:10px;
+  font-size:10px;
+  letter-spacing:1.5px;
+  opacity:.6;
+}
+
+@keyframes appear {
+  from {opacity:0;transform:translateY(8px);}
+  to {opacity:1;transform:translateY(0);}
+}
+
+@media(max-width:480px) {
+  .trophy-content {padding:11px;}
+  .category-btn {font-size:10px;padding:8px;}
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+  <a class="brand" href="/">GOAT<span>DEBATE</span></a>
+  <span class="live"><i></i> VOTES EN DIRECT</span>
+</header>
+
+<main>
+<section class="hero">
+
+  <p class="eyebrow">LE DÉBAT N'A JAMAIS ÉTÉ CLOS</p>
+  <h1>WHO IS THE<br><em>GREATEST</em> OF ALL TIME?</h1>
+  <p class="intro">Deux légendes. Une seule question. À toi de trancher.</p>
+
+  <div class="players">
+
+    <!-- MESSI -->
+
+    <article class="player messi">
+
+      <div class="player-art art-messi">
+        <span class="number">10</span>
+        <span class="country">ARGENTINA</span>
+      </div>
+
+      <div class="player-info">
+        <div>
+          <h2>LIONEL<br>MESSI</h2>
+          <p>LA PULGA · ARGENTINE</p>
+        </div>
+        <span class="tag">LM10</span>
+      </div>
+
+      <button class="trophy-toggle" type="button"
+        aria-expanded="false" aria-controls="messi-trophies">
+        🏆 VOIR LE PALMARÈS <span>⌄</span>
+      </button>
+
+      <div class="trophy-panel" id="messi-trophies">
+        <div class="trophy-content">
+          <h3>🏆 PALMARÈS DE MESSI</h3>
+          <div class="category-list" id="messi-categories"></div>
+          <div class="year-list" id="messi-years"></div>
+          <div class="trophy-detail" id="messi-detail">
+            <p>Choisis une catégorie et une année.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="vote" data-player="messi">
+        VOTER MESSI <b>→</b>
+      </button>
+
+    </article>
+
+    <div class="versus">VS</div>
+
+    <!-- RONALDO -->
+
+    <article class="player ronaldo">
+
+      <div class="player-art art-ronaldo">
+        <span class="number">7</span>
+        <span class="country">PORTUGAL</span>
+      </div>
+
+      <div class="player-info">
+        <div>
+          <h2>CRISTIANO<br>RONALDO</h2>
+          <p>CR7 · PORTUGAL</p>
+        </div>
+        <span class="tag">CR7</span>
+      </div>
+
+      <button class="trophy-toggle" type="button"
+        aria-expanded="false" aria-controls="ronaldo-trophies">
+        🏆 VOIR LE PALMARÈS <span>⌄</span>
+      </button>
+
+      <div class="trophy-panel" id="ronaldo-trophies">
+        <div class="trophy-content">
+          <h3>🏆 PALMARÈS DE RONALDO</h3>
+          <div class="category-list" id="ronaldo-categories"></div>
+          <div class="year-list" id="ronaldo-years"></div>
+          <div class="trophy-detail" id="ronaldo-detail">
+            <p>Choisis une catégorie et une année.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="vote" data-player="ronaldo">
+        VOTER RONALDO <b>→</b>
+      </button>
+
+    </article>
+
+  </div>
+
+  <p class="price-note">
+    UN VOTE = <strong>1 €</strong> · PAIEMENT SÉCURISÉ
+  </p>
+
+</section>
+
+<section class="results">
+
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">LE VERDICT DU PUBLIC</p>
+      <h2>LES RÉSULTATS</h2>
+    </div>
+    <span class="refresh">MIS À JOUR AUTOMATIQUEMENT</span>
+  </div>
+
+  <div class="score">
+    <div>
+      <strong id="messiPct">0%</strong>
+      <span>MESSI</span>
+    </div>
+
+    <div class="total">
+      <strong id="total">0</strong>
+      <span>VOTES VALIDÉS</span>
+    </div>
+
+    <div class="right">
+      <strong id="ronaldoPct">0%</strong>
+      <span>RONALDO</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <div id="messiBar"></div>
+    <div id="ronaldoBar"></div>
+  </div>
+
+  <p class="fine">
+    Seuls les paiements confirmés sont comptabilisés.
+    Un paiement annulé ne crée aucun vote.
+  </p>
+
+</section>
+</main>
+
+<footer>
+  <span>GOAT DEBATE © 2026</span>
+  <span>Un débat sportif, des votes transparents.</span>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const trophyData = {
+
+  messi: {
+    "Ballons d'Or": {
+      "2009": "Premier Ballon d'Or de Messi à seulement 22 ans. Il réalise une saison exceptionnelle avec Barcelone et remporte notamment la Ligue des champions.",
+      "2010": "Deuxième Ballon d'Or après une année remarquable avec le FC Barcelone.",
+      "2011": "Troisième Ballon d'Or consécutif. Messi domine le football européen et remporte une nouvelle Ligue des champions.",
+      "2012": "Quatrième Ballon d'Or consécutif. Il inscrit 91 buts sur l'année civile, un record historique.",
+      "2015": "Cinquième Ballon d'Or après une année exceptionnelle et un nouveau triplé avec Barcelone.",
+      "2019": "Sixième Ballon d'Or après une saison où il termine meilleur buteur du championnat espagnol.",
+      "2021": "Septième Ballon d'Or après avoir conduit l'Argentine à la victoire en Copa América.",
+      "2023": "Huitième Ballon d'Or après avoir mené l'Argentine au titre mondial lors de la Coupe du monde 2022."
+    },
+
+    "Ligue des champions": {
+      "2006": "Messi remporte sa première Ligue des champions avec Barcelone. Il ne dispute toutefois pas la finale en raison d'une blessure.",
+      "2009": "Barcelone bat Manchester United en finale. Messi marque un but de la tête et remporte sa deuxième Ligue des champions.",
+      "2011": "Messi brille en finale contre Manchester United et remporte une nouvelle Ligue des champions.",
+      "2015": "Barcelone bat la Juventus en finale et remporte la compétition. Messi fait partie du trio offensif historique avec Neymar et Suárez."
+    },
+
+    "Coupe du monde": {
+      "2022": "Au Qatar, Messi mène l'Argentine au titre mondial. Il marque deux buts en finale contre la France et est élu meilleur joueur du tournoi."
+    },
+
+    "Copa América": {
+      "2021": "L'Argentine remporte la Copa América contre le Brésil au Maracanã. Messi est élu meilleur joueur du tournoi.",
+      "2024": "L'Argentine conserve son titre en remportant la Copa América contre la Colombie. Messi remporte sa deuxième Copa América."
+    }
+  },
+
+  ronaldo: {
+    "Ballons d'Or": {
+      "2008": "Premier Ballon d'Or de Cristiano Ronaldo après une saison exceptionnelle avec Manchester United, couronnée par une victoire en Ligue des champions.",
+      "2013": "Deuxième Ballon d'Or. Ronaldo réalise une année exceptionnelle avec le Real Madrid et le Portugal.",
+      "2014": "Troisième Ballon d'Or après une saison marquée par sa victoire en Ligue des champions avec le Real Madrid.",
+      "2016": "Quatrième Ballon d'Or après une année historique : victoire en Ligue des champions et premier titre européen avec le Portugal.",
+      "2017": "Cinquième Ballon d'Or après une nouvelle Ligue des champions remportée avec le Real Madrid."
+    },
+
+    "Ligue des champions": {
+      "2008": "Avec Manchester United, Ronaldo remporte la Ligue des champions contre Chelsea. Il marque un but en finale.",
+      "2014": "Le Real Madrid remporte la Décima contre l'Atlético de Madrid. Ronaldo marque lors de la finale.",
+      "2016": "Ronaldo remporte une deuxième Ligue des champions avec le Real Madrid après une finale contre l'Atlético.",
+      "2017": "Le Real Madrid bat la Juventus en finale. Ronaldo inscrit deux buts.",
+      "2018": "Le Real Madrid bat Liverpool en finale. Ronaldo remporte sa cinquième Ligue des champions."
+    },
+
+    "Euro": {
+      "2016": "Le Portugal remporte son premier championnat d'Europe en battant la France en finale. Blessé pendant le match, Ronaldo encourage son équipe depuis le banc."
+    },
+
+    "Ligue des nations": {
+      "2019": "Le Portugal remporte la première édition de la Ligue des nations en battant les Pays-Bas en finale.",
+      "2025": "Le Portugal remporte la Ligue des nations face à l'Espagne aux tirs au but. Ronaldo inscrit un but pendant la finale."
+    }
+  }
+};
+
+
+// OUVRIR ET FERMER LES PALMARÈS
+
+document.querySelectorAll(".trophy-toggle").forEach(button => {
+  button.addEventListener("click", () => {
+    const panel = document.getElementById(
+      button.getAttribute("aria-controls")
+    );
+
+    const isOpen = button.getAttribute("aria-expanded") === "true";
+
+    button.setAttribute("aria-expanded", String(!isOpen));
+    panel.classList.toggle("open", !isOpen);
+  });
+});
+
+
+// CRÉATION DES CATÉGORIES ET DES ANNÉES
+
+function setupPlayer(player) {
+
+  const categories = document.getElementById(player + "-categories");
+  const years = document.getElementById(player + "-years");
+  const detail = document.getElementById(player + "-detail");
+
+  const data = trophyData[player];
+
+  function showCategory(category) {
+
+    categories.querySelectorAll("button").forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.category === category
+      );
+    });
+
+    years.innerHTML = "";
+
+    const entries = Object.entries(data[category]);
+
+    entries.forEach(([year, description], index) => {
+
+      const button = document.createElement("button");
+      button.className = "year-btn";
+      button.textContent = year;
+
+      button.addEventListener("click", () => {
+
+        years.querySelectorAll("button").forEach(b => {
+          b.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        detail.innerHTML = `
+          <span class="trophy-label">${category.toUpperCase()}</span>
+          <h4>🏆 ${category} — ${year}</h4>
+          <p>${description}</p>
+        `;
+      });
+
+      years.appendChild(button);
+
+      if (index === 0) {
+        button.click();
+      }
+    });
+  }
+
+  Object.keys(data).forEach((category, index) => {
+
+    const button = document.createElement("button");
+    button.className = "category-btn";
+    button.textContent = category;
+    button.dataset.category = category;
+
+    button.addEventListener("click", () => {
+      showCategory(category);
+    });
+
+    categories.appendChild(button);
+
+    if (index === 0) {
+      showCategory(category);
+    }
+  });
+}
+
+setupPlayer("messi");
+setupPlayer("ronaldo");
+
+</script>
+
+<script src="/app.js"></script>
+
+</body>
+</html>
