@@ -1,11 +1,13 @@
 {
-  "name": "messi-vs-ronaldo-paid-vote",
+  "name": "goat-debate",
   "version": "1.0.0",
   "private": true,
   "description": "Paid Messi vs Ronaldo voting site with Stripe Checkout",
-  "scripts": {"start": "node server.js"},
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
-    "better-sqlite3": "^11.8.1",
+    "@supabase/supabase-js": "^2.57.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "stripe": "^17.5.0"
