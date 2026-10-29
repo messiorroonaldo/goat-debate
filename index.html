@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Messi ou Ronaldo ? Deux légendes. Un seul GOAT. Votez.">
+  <title>GOAT DEBATE — Messi vs Ronaldo</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">GOAT<span>DEBATE</span></a>
+    <span class="live"><i></i> VOTES EN DIRECT</span>
+    <span class="secure">UN VOTE · PAIEMENT SÉCURISÉ</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-title">
+        <p class="eyebrow">THE WORLD'S GREATEST FOOTBALL DEBATE</p>
+        <h1>ONE GAME.<br><em>TWO LEGENDS.</em></h1>
+        <p class="intro">Deux parcours légendaires. Une seule couronne. À toi de choisir.</p>
+      </div>
+
+      <div class="players">
+        <article class="player messi">
+          <div class="player-art art-messi">
+            <span class="country">ARGENTINA · 10</span>
+            <span class="art-label">LA PULGA</span>
+          </div>
+          <div class="player-info">
+            <div><p class="player-kicker">THE MAGICIAN</p><h2>LIONEL<br>MESSI</h2><p class="career">WORLD CUP · 8 BALLON D'OR · LEGACY</p></div>
+            <span class="tag">LM10</span>
+          </div>
+          <button class="vote" data-player="messi"><span>VOTER MESSI</span><b>→</b></button>
+        </article>
+
+        <div class="versus"><span>VS</span><i>THE GOAT DEBATE</i></div>
+
+        <article class="player ronaldo">
+          <div class="player-art art-ronaldo">
+            <span class="country">PORTUGAL · 7</span>
+            <span class="art-label">THE MACHINE</span>
+          </div>
+          <div class="player-info">
+            <div><p class="player-kicker">THE PHENOMENON</p><h2>CRISTIANO<br>RONALDO</h2><p class="career">5 CHAMPIONS LEAGUE · 5 BALLON D'OR · LEGACY</p></div>
+            <span class="tag">CR7</span>
+          </div>
+          <button class="vote" data-player="ronaldo"><span>VOTER RONALDO</span><b>→</b></button>
+        </article>
+      </div>
+      <p class="price-note">UN VOTE = <strong>0,50 €</strong> <span>·</span> PAIEMENT SÉCURISÉ</p>
+    </section>
+
+    <section class="results">
+      <div class="section-heading">
+        <div><p class="eyebrow">THE PEOPLE HAVE SPOKEN</p><h2>LE VERDICT DU PUBLIC</h2></div>
+        <span class="refresh"><i></i> MIS À JOUR AUTOMATIQUEMENT</span>
+      </div>
+      <div class="score">
+        <div class="score-side messi-score"><strong id="messiPct">0%</strong><span>MESSI</span></div>
+        <div class="total"><strong id="total">0</strong><span>VOTES VALIDÉS</span></div>
+        <div class="score-side ronaldo-score"><strong id="ronaldoPct">0%</strong><span>RONALDO</span></div>
+      </div>
+      <div class="bar"><div id="messiBar"></div><div id="ronaldoBar"></div></div>
+      <p class="fine">Seuls les paiements confirmés sont comptabilisés. Un paiement annulé ne crée aucun vote.</p>
+    </section>
+  </main>
+
+  <footer><span>GOAT DEBATE © 2026</span><span>ONE DEBATE. TWO LEGENDS. YOUR VERDICT.</span></footer>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
