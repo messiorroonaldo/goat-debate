@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Le grand débat : Messi ou Ronaldo ? Choisissez le montant de votre vote.">
+  <title>THE GOAT DEBATE — Messi vs Ronaldo</title>
+  <link rel="stylesheet" href="/style.css">
+
+<style>
+.trophy-toggle {
+  display:block;
+  width:100%;
+  margin:18px 0 10px;
+  padding:13px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:8px;
+  color:white;
+  font-weight:bold;
+  font-size:13px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.messi .trophy-toggle:hover {background:#1765bd;}
+.ronaldo .trophy-toggle:hover {background:#bd202b;}
+
+.trophy-toggle span {
+  display:inline-block;
+  margin-left:8px;
+  transition:transform .3s;
+}
+
+.trophy-toggle[aria-expanded="true"] span {
+  transform:rotate(180deg);
+}
+
+.trophy-panel {
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition:max-height .7s ease,opacity .4s ease;
+}
+
+.trophy-panel.open {
+  max-height:1800px;
+  opacity:1;
+}
+
+.trophy-content {
+  padding:15px;
+  margin-bottom:15px;
+  background:rgba(0,0,0,.35);
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.12);
+}
+
+.trophy-content h3 {
+  margin:0 0 15px;
+  font-size:16px;
+}
+
+.category-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:15px;
+}
+
+.category-btn,.year-btn {
+  padding:9px 12px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:6px;
+  background:rgba(255,255,255,.06);
+  color:white;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:bold;
+  transition:.25s;
+}
+
+.category-btn:hover,.year-btn:hover {
+  background:rgba(255,255,255,.18);
+}
+
+.messi .category-btn.active,
+.messi .year-btn.active {background:#1765bd;}
+
+.ronaldo .category-btn.active,
+.ronaldo .year-btn.active {background:#bd202b;}
+
+.year-list {
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:5px 2px 12px;
+}
+
+.year-btn {
+  flex-shrink:0;
+  min-width:65px;
+}
+
+.trophy-detail {
+  min-height:130px;
+  padding:17px;
+  margin-top:8px;
+  background:rgba(255,255,255,.06);
+  border-radius:6px;
+  border-left:3px solid #aaa;
+  animation:appear .35s ease;
+}
+
+.messi .trophy-detail {border-left-color:#65baff;}
+.ronaldo .trophy-detail {border-left-color:#ff7373;}
+
+.trophy-detail h4 {
+  margin:0 0 10px;
+  font-size:17px;
+}
+
+.trophy-detail p {
+  font-size:13px;
+  line-height:1.7;
+  opacity:.85;
+  margin:0;
+}
+
+.trophy-label {
+  display:inline-block;
+  margin-bottom:10px;
+  font-size:10px;
+  letter-spacing:1.5px;
+  opacity:.6;
+}
+
+@keyframes appear {
+  from {opacity:0;transform:translateY(8px);}
+  to {opacity:1;transform:translateY(0);}
+}
+
+@media(max-width:480px) {
+  .trophy-content {padding:11px;}
+  .category-btn {font-size:10px;padding:8px;}
+}
+
+.amount-box {
+  max-width:420px;
+  margin:25px auto 22px;
+  padding:18px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;
+  text-align:center;
+}
+.amount-box label {
+  display:block;
+  margin-bottom:10px;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+.amount-box input {
+  width:100%;
+  box-sizing:border-box;
+  padding:13px;
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:7px;
+  background:rgba(0,0,0,.35);
+  color:white;
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+}
+.amount-box small {
+  display:block;
+  margin-top:9px;
+  font-size:11px;
+  opacity:.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="top">
+  <a class="brand" href="/">GOAT<span>DEBATE</span></a>
+  <span class="live"><i></i> VOTES EN DIRECT</span>
+</header>
+
+<main>
+<section class="hero">
+
+  <p class="eyebrow">LE DÉBAT N'A JAMAIS ÉTÉ CLOS</p>
+  <h1>WHO IS THE<br><em>GREATEST</em> OF ALL TIME?</h1>
+  <p class="intro">Deux légendes. Une seule question. À toi de trancher.</p>
+
+  <div class="amount-box">
+    <label for="voteAmount">CHOISIS LE MONTANT DE TON VOTE</label>
+    <input
+      type="number"
+      id="voteAmount"
+      name="voteAmount"
+      min="0.50"
+      max="1000"
+      step="0.01"
+      value="1.00"
+      inputmode="decimal"
+    >
+    <small>Montant libre de 0,50 € à 1 000 € · Paiement sécurisé</small>
+  </div>
+
+  <div class="players">
+
+    <!-- MESSI -->
+
+    <article class="player messi">
+
+      <div class="player-art art-messi">
+        <span class="number">10</span>
+        <span class="country">ARGENTINA</span>
+      </div>
+
+      <div class="player-info">
+        <div>
+          <h2>LIONEL<br>MESSI</h2>
+          <p>LA PULGA · ARGENTINE</p>
+        </div>
+        <span class="tag">LM10</span>
+      </div>
+
+      <button class="trophy-toggle" type="button"
+        aria-expanded="false" aria-controls="messi-trophies">
+        🏆 VOIR LE PALMARÈS <span>⌄</span>
+      </button>
+
+      <div class="trophy-panel" id="messi-trophies">
+        <div class="trophy-content">
+          <h3>🏆 PALMARÈS DE MESSI</h3>
+          <div class="category-list" id="messi-categories"></div>
+          <div class="year-list" id="messi-years"></div>
+          <div class="trophy-detail" id="messi-detail">
+            <p>Choisis une catégorie et une année.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="vote" data-player="messi">
+        VOTER MESSI <b>→</b>
+      </button>
+
+    </article>
+
+    <div class="versus">VS</div>
+
+    <!-- RONALDO -->
+
+    <article class="player ronaldo">
+
+      <div class="player-art art-ronaldo">
+        <span class="number">7</span>
+        <span class="country">PORTUGAL</span>
+      </div>
+
+      <div class="player-info">
+        <div>
+          <h2>CRISTIANO<br>RONALDO</h2>
+          <p>CR7 · PORTUGAL</p>
+        </div>
+        <span class="tag">CR7</span>
+      </div>
+
+      <button class="trophy-toggle" type="button"
+        aria-expanded="false" aria-controls="ronaldo-trophies">
+        🏆 VOIR LE PALMARÈS <span>⌄</span>
+      </button>
+
+      <div class="trophy-panel" id="ronaldo-trophies">
+        <div class="trophy-content">
+          <h3>🏆 PALMARÈS DE RONALDO</h3>
+          <div class="category-list" id="ronaldo-categories"></div>
+          <div class="year-list" id="ronaldo-years"></div>
+          <div class="trophy-detail" id="ronaldo-detail">
+            <p>Choisis une catégorie et une année.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="vote" data-player="ronaldo">
+        VOTER RONALDO <b>→</b>
+      </button>
+
+    </article>
+
+  </div>
+
+  <p class="price-note">
+    UN VOTE = <strong>1 €</strong> · PAIEMENT SÉCURISÉ
+  </p>
+
+</section>
+
+
+<section class="career-section" id="career">
+  <div class="career-heading">
+    <p class="eyebrow">AU-DELÀ DES STATISTIQUES</p>
+    <h2>DEUX DESTINS.<br><span>UNE LÉGENDE.</span></h2>
+    <p class="career-intro">Découvre leur histoire, leurs étapes décisives et les moments qui ont marqué le football.</p>
+  </div>
+
+  <div class="career-tabs" role="tablist" aria-label="Choisir un joueur">
+    <button class="career-tab messi-tab active" id="tab-messi" role="tab" aria-selected="true" aria-controls="story-messi" data-player-tab="messi">🇦🇷 L'HISTOIRE DE MESSI</button>
+    <button class="career-tab ronaldo-tab" id="tab-ronaldo" role="tab" aria-selected="false" aria-controls="story-ronaldo" data-player-tab="ronaldo">🇵🇹 L'HISTOIRE DE RONALDO</button>
+  </div>
+
+  <article class="career-story messi-story active" id="story-messi" role="tabpanel" aria-labelledby="tab-messi">
+    <div class="story-hero">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Messi_20180626.jpg" alt="Lionel Messi avec l'Argentine" loading="lazy" onerror="this.onerror=null;this.src='/images/messi.jpg'">
+      <div class="story-hero-copy">
+        <span class="story-kicker">LIONEL ANDRÉS MESSI · N°10</span>
+        <h3>Le génie de Rosario</h3>
+        <p>Un enfant passionné d'Argentine devenu l'un des joueurs les plus titrés et influents de l'histoire du football. Sa carrière est celle d'un talent exceptionnel, d'une fidélité rare et d'une consécration mondiale.</p>
+        <div class="story-facts"><span>🇦🇷 Argentine</span><span>24 juin 1987</span><span>Attaquant</span></div>
+      </div>
+    </div>
+    <div class="story-section-title"><span>01 / LES GRANDES ÉTAPES</span><h3>Une carrière hors du commun</h3></div>
+    <div class="timeline">
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Messi_20180626.jpg" alt="Messi sous les couleurs de l'Argentine" loading="lazy" onerror="this.onerror=null;this.src='/images/messi.jpg'">
+        <div><span class="timeline-date">1987 – 2000</span><h4>Rosario : les premiers pas</h4><p>Né à Rosario, en Argentine, Lionel Messi grandit dans une famille passionnée de football. Il joue très jeune à Grandoli puis rejoint les équipes de jeunes de Newell's Old Boys. Repéré pour son talent, il part à 13 ans en Espagne afin de poursuivre sa formation au FC Barcelone.</p></div>
+      </div>
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Messi_2009.jpg" alt="Messi au FC Barcelone" loading="lazy" onerror="this.onerror=null;this.src='/images/messi.jpg'">
+        <div><span class="timeline-date">2004 – 2021</span><h4>FC Barcelone : l'ascension d'une légende</h4><p>Il fait ses débuts en équipe première en 2004. Il devient progressivement le leader offensif du Barça, remporte quatre Ligues des champions et dix championnats d'Espagne. Sa vision du jeu, ses dribbles et son pied gauche marquent une génération. Il quitte le club en 2021 après avoir inscrit une grande partie de son histoire avec lui.</p></div>
+      </div>
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Messi_PSG.jpg" alt="Messi avec le Paris Saint-Germain" loading="lazy" onerror="this.onerror=null;this.src='/images/messi.jpg'">
+        <div><span class="timeline-date">2021 – 2023</span><h4>Paris Saint-Germain : un nouveau chapitre</h4><p>Après son départ de Barcelone, Messi découvre la Ligue 1. Il remporte deux titres de champion de France et partage l'affiche avec de grandes stars. Cette étape lui permet de se préparer à un nouveau défi sur un autre continent.</p></div>
+      </div>
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Messi_Inter_Miami.jpg" alt="Messi avec l'Inter Miami" loading="lazy" onerror="this.onerror=null;this.src='/images/messi.jpg'">
+        <div><span class="timeline-date">Depuis 2023</span><h4>Inter Miami : conquérir l'Amérique</h4><p>Messi rejoint l'Inter Miami en 2023. Son arrivée transforme la visibilité du club et du football aux États-Unis. Il remporte la Leagues Cup dès sa première saison et continue d'écrire un nouveau chapitre de sa carrière en MLS.</p></div>
+      </div>
+    </div>
+    <div class="story-section-title"><span>02 / AVEC L'ARGENTINE</span><h3>Le rêve devenu réalité</h3></div>
+    <div class="achievement-grid">
+      <div class="achievement-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Messi_World_Cup_trophy.jpg" alt="Messi soulève la Coupe du monde 2022" loading="lazy" onerror="this.onerror=null;this.src='/images/messi.jpg'">
+        <div><span>QATAR 2022</span><h4>Le sommet mondial</h4><p>Après la finale perdue en 2014, Messi conduit l'Argentine au titre mondial en 2022. Il marque deux fois en finale contre la France et remporte le Ballon d'or du tournoi.</p></div>
+      </div>
+      <div class="achievement-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Argentina_Copa_America_2021_champion.jpg" alt="L'Argentine célèbre la Copa América 2021" loading="lazy" onerror="this.onerror=null;this.src='/images/messi.jpg'">
+        <div><span>2021 & 2024</span><h4>Deux Copa América</h4><p>Il remporte enfin un grand titre avec l'équipe A en 2021, puis mène l'Argentine à une nouvelle victoire en 2024.</p></div>
+      </div>
+      <div class="achievement-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Messi_Ballon_dOr_2023.jpg" alt="Lionel Messi avec son Ballon d'Or" loading="lazy" onerror="this.onerror=null;this.src='/images/messi.jpg'">
+        <div><span>RÉCOMPENSES INDIVIDUELLES</span><h4>Huit Ballons d'Or</h4><p>Messi remporte huit fois le Ballon d'Or, un record, en reconnaissance de sa régularité et de son influence au plus haut niveau.</p></div>
+      </div>
+    </div>
+    <p class="story-note">Repères historiques : parcours et titres majeurs. Les statistiques et palmarès détaillés sont disponibles dans la rubrique « Voir le palmarès » plus haut.</p>
+  </article>
+
+  <article class="career-story ronaldo-story" id="story-ronaldo" role="tabpanel" aria-labelledby="tab-ronaldo" hidden>
+    <div class="story-hero">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_2018.jpg" alt="Cristiano Ronaldo avec le Portugal" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+      <div class="story-hero-copy">
+        <span class="story-kicker">CRISTIANO RONALDO · CR7</span>
+        <h3>La machine à records</h3>
+        <p>Parti de Madère avec un rêve immense, Cristiano Ronaldo a construit sa légende grâce à son travail, sa puissance, sa vitesse et son obsession de la performance.</p>
+        <div class="story-facts"><span>🇵🇹 Portugal</span><span>5 février 1985</span><span>Attaquant</span></div>
+      </div>
+    </div>
+    <div class="story-section-title"><span>01 / LES GRANDES ÉTAPES</span><h3>De Madère au sommet du monde</h3></div>
+    <div class="timeline">
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_Sporting.jpg" alt="Ronaldo au Sporting Portugal" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span class="timeline-date">1985 – 2003</span><h4>Madère et le Sporting : le début du rêve</h4><p>Né à Funchal, sur l'île de Madère, Cristiano Ronaldo rejoint le centre de formation du Sporting CP à Lisbonne à l'adolescence. Ses qualités physiques, sa vitesse et ses dribbles attirent rapidement l'attention des grands clubs européens.</p></div>
+      </div>
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_Manchester_United_2008.jpg" alt="Ronaldo à Manchester United" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span class="timeline-date">2003 – 2009</span><h4>Manchester United : devenir une star</h4><p>Recruté par Manchester United en 2003, il progresse sous la direction d'Alex Ferguson. Il gagne trois Premier Leagues et la Ligue des champions 2008. Cette année-là, il remporte son premier Ballon d'Or.</p></div>
+      </div>
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_Real_Madrid.jpg" alt="Ronaldo au Real Madrid" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span class="timeline-date">2009 – 2018</span><h4>Real Madrid : l'ère des records</h4><p>Son transfert au Real Madrid ouvre la période la plus prolifique de sa carrière. Il devient le meilleur buteur de l'histoire du club avec 450 buts en 438 matches officiels et remporte quatre Ligues des champions avec Madrid.</p></div>
+      </div>
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_Juventus_2019.jpg" alt="Ronaldo à la Juventus" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span class="timeline-date">2018 – 2021</span><h4>Juventus : relever un nouveau défi</h4><p>En Italie, Ronaldo découvre la Serie A et remporte deux championnats, une Coupe d'Italie et deux Supercoupes d'Italie. Il continue à marquer régulièrement dans un troisième grand championnat européen.</p></div>
+      </div>
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_Manchester_United_2021.jpg" alt="Ronaldo de retour à Manchester United" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span class="timeline-date">2021 – 2022</span><h4>Le retour à Manchester</h4><p>Il retrouve Old Trafford en 2021. Ce deuxième passage est plus court et s'achève en 2022, avant une nouvelle aventure loin du football européen.</p></div>
+      </div>
+      <div class="timeline-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_Al_Nassr.jpg" alt="Ronaldo avec Al Nassr" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span class="timeline-date">Depuis 2023</span><h4>Al-Nassr : ouvrir une nouvelle voie</h4><p>En rejoignant Al-Nassr en Arabie saoudite, Ronaldo participe à l'exposition internationale du championnat. Il poursuit sa carrière et reste l'une des figures majeures du football mondial.</p></div>
+      </div>
+    </div>
+    <div class="story-section-title"><span>02 / AVEC LE PORTUGAL</span><h3>Porter tout un pays</h3></div>
+    <div class="achievement-grid">
+      <div class="achievement-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Portugal_Euro_2016_champions.jpg" alt="Le Portugal célèbre l'Euro 2016" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span>EURO 2016</span><h4>Le premier grand sacre</h4><p>Le Portugal remporte le premier Euro de son histoire en battant la France en finale. Blessé pendant le match, Ronaldo encourage ses coéquipiers depuis le bord du terrain.</p></div>
+      </div>
+      <div class="achievement-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Portugal_UEFA_Nations_League_2019.jpg" alt="Le Portugal remporte la Ligue des nations 2019" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span>2019 & 2025</span><h4>Deux Ligues des nations</h4><p>Ronaldo remporte la Ligue des nations avec le Portugal en 2019 puis en 2025, ajoutant deux titres internationaux à son palmarès.</p></div>
+      </div>
+      <div class="achievement-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_Ballon_dOr_2017.jpg" alt="Cristiano Ronaldo avec le Ballon d'Or" loading="lazy" onerror="this.onerror=null;this.src='/images/ronaldo.jpg'">
+        <div><span>RÉCOMPENSES INDIVIDUELLES</span><h4>Cinq Ballons d'Or</h4><p>Il remporte cinq Ballons d'Or et s'impose comme l'un des meilleurs buteurs de l'histoire de la Ligue des champions et du football international.</p></div>
+      </div>
+    </div>
+    <p class="story-note">Repères historiques : parcours et titres majeurs. Les statistiques et palmarès détaillés sont disponibles dans la rubrique « Voir le palmarès » plus haut.</p>
+  </article>
+</section>
+
+
+<section class="results">
+
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">LE VERDICT DU PUBLIC</p>
+      <h2>LES RÉSULTATS</h2>
+    </div>
+    <span class="refresh">MIS À JOUR AUTOMATIQUEMENT</span>
+  </div>
+
+  <div class="score">
+    <div>
+      <strong id="messiPct">0%</strong>
+      <span>MESSI</span>
+    </div>
+
+    <div class="total">
+      <strong id="total">0</strong>
+      <span>VOTES VALIDÉS</span>
+    </div>
+
+    <div class="right">
+      <strong id="ronaldoPct">0%</strong>
+      <span>RONALDO</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <div id="messiBar"></div>
+    <div id="ronaldoBar"></div>
+  </div>
+
+  <p class="fine">
+    Seuls les paiements confirmés sont comptabilisés.
+    Un paiement annulé ne crée aucun vote.
+  </p>
+
+</section>
+</main>
+
+<footer>
+  <span>GOAT DEBATE © 2026</span>
+  <span>Un débat sportif, des votes transparents.</span>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const trophyData = {
+
+  messi: {
+    "Ballons d'Or": {
+      "2009": "Premier Ballon d'Or de Messi à seulement 22 ans. Il réalise une saison exceptionnelle avec Barcelone et remporte notamment la Ligue des champions.",
+      "2010": "Deuxième Ballon d'Or après une année remarquable avec le FC Barcelone.",
+      "2011": "Troisième Ballon d'Or consécutif. Messi domine le football européen et remporte une nouvelle Ligue des champions.",
+      "2012": "Quatrième Ballon d'Or consécutif. Il inscrit 91 buts sur l'année civile, un record historique.",
+      "2015": "Cinquième Ballon d'Or après une année exceptionnelle et un nouveau triplé avec Barcelone.",
+      "2019": "Sixième Ballon d'Or après une saison où il termine meilleur buteur du championnat espagnol.",
+      "2021": "Septième Ballon d'Or après avoir conduit l'Argentine à la victoire en Copa América.",
+      "2023": "Huitième Ballon d'Or après avoir mené l'Argentine au titre mondial lors de la Coupe du monde 2022."
+    },
+
+    "Ligue des champions": {
+      "2006": "Messi remporte sa première Ligue des champions avec Barcelone. Il ne dispute toutefois pas la finale en raison d'une blessure.",
+      "2009": "Barcelone bat Manchester United en finale. Messi marque un but de la tête et remporte sa deuxième Ligue des champions.",
+      "2011": "Messi brille en finale contre Manchester United et remporte une nouvelle Ligue des champions.",
+      "2015": "Barcelone bat la Juventus en finale et remporte la compétition. Messi fait partie du trio offensif historique avec Neymar et Suárez."
+    },
+
+    "Coupe du monde": {
+      "2022": "Au Qatar, Messi mène l'Argentine au titre mondial. Il marque deux buts en finale contre la France et est élu meilleur joueur du tournoi."
+    },
+
+    "Copa América": {
+      "2021": "L'Argentine remporte la Copa América contre le Brésil au Maracanã. Messi est élu meilleur joueur du tournoi.",
+      "2024": "L'Argentine conserve son titre en remportant la Copa América contre la Colombie. Messi remporte sa deuxième Copa América."
+    }
+  },
+
+  ronaldo: {
+    "Ballons d'Or": {
+      "2008": "Premier Ballon d'Or de Cristiano Ronaldo après une saison exceptionnelle avec Manchester United, couronnée par une victoire en Ligue des champions.",
+      "2013": "Deuxième Ballon d'Or. Ronaldo réalise une année exceptionnelle avec le Real Madrid et le Portugal.",
+      "2014": "Troisième Ballon d'Or après une saison marquée par sa victoire en Ligue des champions avec le Real Madrid.",
+      "2016": "Quatrième Ballon d'Or après une année historique : victoire en Ligue des champions et premier titre européen avec le Portugal.",
+      "2017": "Cinquième Ballon d'Or après une nouvelle Ligue des champions remportée avec le Real Madrid."
+    },
+
+    "Ligue des champions": {
+      "2008": "Avec Manchester United, Ronaldo remporte la Ligue des champions contre Chelsea. Il marque un but en finale.",
+      "2014": "Le Real Madrid remporte la Décima contre l'Atlético de Madrid. Ronaldo marque lors de la finale.",
+      "2016": "Ronaldo remporte une deuxième Ligue des champions avec le Real Madrid après une finale contre l'Atlético.",
+      "2017": "Le Real Madrid bat la Juventus en finale. Ronaldo inscrit deux buts.",
+      "2018": "Le Real Madrid bat Liverpool en finale. Ronaldo remporte sa cinquième Ligue des champions."
+    },
+
+    "Euro": {
+      "2016": "Le Portugal remporte son premier championnat d'Europe en battant la France en finale. Blessé pendant le match, Ronaldo encourage son équipe depuis le banc."
+    },
+
+    "Ligue des nations": {
+      "2019": "Le Portugal remporte la première édition de la Ligue des nations en battant les Pays-Bas en finale.",
+      "2025": "Le Portugal remporte la Ligue des nations face à l'Espagne aux tirs au but. Ronaldo inscrit un but pendant la finale."
+    }
+  }
+};
+
+
+// OUVRIR ET FERMER LES PALMARÈS
+
+document.querySelectorAll(".trophy-toggle").forEach(button => {
+  button.addEventListener("click", () => {
+    const panel = document.getElementById(
+      button.getAttribute("aria-controls")
+    );
+
+    const isOpen = button.getAttribute("aria-expanded") === "true";
+
+    button.setAttribute("aria-expanded", String(!isOpen));
+    panel.classList.toggle("open", !isOpen);
+  });
+});
+
+
+// CRÉATION DES CATÉGORIES ET DES ANNÉES
+
+function setupPlayer(player) {
+
+  const categories = document.getElementById(player + "-categories");
+  const years = document.getElementById(player + "-years");
+  const detail = document.getElementById(player + "-detail");
+
+  const data = trophyData[player];
+
+  function showCategory(category) {
+
+    categories.querySelectorAll("button").forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.category === category
+      );
+    });
+
+    years.innerHTML = "";
+
+    const entries = Object.entries(data[category]);
+
+    entries.forEach(([year, description], index) => {
+
+      const button = document.createElement("button");
+      button.className = "year-btn";
+      button.textContent = year;
+
+      button.addEventListener("click", () => {
+
+        years.querySelectorAll("button").forEach(b => {
+          b.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        detail.innerHTML = `
+          <span class="trophy-label">${category.toUpperCase()}</span>
+          <h4>🏆 ${category} — ${year}</h4>
+          <p>${description}</p>
+        `;
+      });
+
+      years.appendChild(button);
+
+      if (index === 0) {
+        button.click();
+      }
+    });
+  }
+
+  Object.keys(data).forEach((category, index) => {
+
+    const button = document.createElement("button");
+    button.className = "category-btn";
+    button.textContent = category;
+    button.dataset.category = category;
+
+    button.addEventListener("click", () => {
+      showCategory(category);
+    });
+
+    categories.appendChild(button);
+
+    if (index === 0) {
+      showCategory(category);
+    }
+  });
+}
+
+setupPlayer("messi");
+setupPlayer("ronaldo");
+
+</script>
+
+
+<script>
+  // Onglets des biographies Messi / Ronaldo
+  document.querySelectorAll("[data-player-tab]").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const player = tab.dataset.playerTab;
+      document.querySelectorAll("[data-player-tab]").forEach((item) => {
+        const selected = item === tab;
+        item.classList.toggle("active", selected);
+        item.setAttribute("aria-selected", String(selected));
+      });
+      document.querySelectorAll(".career-story").forEach((story) => {
+        const selected = story.id === "story-" + player;
+        story.hidden = !selected;
+        story.classList.toggle("active", selected);
+      });
+    });
+  });
+</script>
+
+<script src="/app.js"></script>
+
+</body>
+</html>
