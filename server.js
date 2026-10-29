@@ -45,7 +45,7 @@ app.post("/webhook", express.raw({ type: "application/json" }), async (req, res)
         const { error } = await supabase.from("votes").insert({
           player,
           stripe_session_id: session.id,
-          paid_cents: session.amount_total || 50
+          paid_cents: session.amount_total
         });
 
         if (error && error.code !== "23505") {
@@ -70,9 +70,28 @@ app.post("/api/create-checkout-session", async (req, res) => {
     }
 
     const player = req.body.player;
+    const amount = req.body.amount;
 
     if (!["messi", "ronaldo"].includes(player)) {
       return res.status(400).json({ error: "Choix invalide." });
+    }
+
+    // Vérifier le montant envoyé
+    const amountText = String(amount ?? "").trim().replace(",", ".");
+
+    if (!/^\d{1,4}(\.\d{1,2})?$/.test(amountText)) {
+      return res.status(400).json({
+        error: "Montant invalide. Utilise un montant avec maximum deux décimales."
+      });
+    }
+
+    const [euros, centimes = ""] = amountText.split(".");
+    const amountCents = Number(euros) * 100 + Number(centimes.padEnd(2, "0"));
+
+    if (amountCents < 50 || amountCents > 100000) {
+      return res.status(400).json({
+        error: "Le montant doit être compris entre 0,50 € et 1 000 €."
+      });
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -84,16 +103,20 @@ app.post("/api/create-checkout-session", async (req, res) => {
           product_data: {
             name: `Vote payant — ${player === "messi" ? "Lionel Messi" : "Cristiano Ronaldo"}`
           },
-          unit_amount: 100
+          unit_amount: amountCents
         },
         quantity: 1
       }],
-      metadata: { player },
+      metadata: {
+        player,
+        amount_cents: String(amountCents)
+      },
       success_url: `${baseUrl}/merci.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/?annule=1`
     });
 
     res.json({ url: session.url });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Impossible de lancer le paiement." });
@@ -123,6 +146,7 @@ app.get("/api/results", async (req, res) => {
       messiPercent: total ? Math.round(totals.messi / total * 100) : 0,
       ronaldoPercent: total ? Math.round(totals.ronaldo / total * 100) : 0
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Impossible de récupérer les votes." });
