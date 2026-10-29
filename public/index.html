@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="/favicon.png">
-  <meta name="description" content="Le grand débat : Messi ou Ronaldo ? Votez pour 1 €.">
+  <meta name="description" content="Le grand débat : Messi ou Ronaldo ? Choisissez le montant de votre vote.">
   <title>THE GOAT DEBATE — Messi vs Ronaldo</title>
   <link rel="stylesheet" href="/style.css">
 
@@ -145,6 +145,42 @@
   .trophy-content {padding:11px;}
   .category-btn {font-size:10px;padding:8px;}
 }
+
+.amount-box {
+  max-width:420px;
+  margin:25px auto 22px;
+  padding:18px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;
+  text-align:center;
+}
+.amount-box label {
+  display:block;
+  margin-bottom:10px;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+.amount-box input {
+  width:100%;
+  box-sizing:border-box;
+  padding:13px;
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:7px;
+  background:rgba(0,0,0,.35);
+  color:white;
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+}
+.amount-box small {
+  display:block;
+  margin-top:9px;
+  font-size:11px;
+  opacity:.7;
+}
+
 </style>
 </head>
 
@@ -161,6 +197,21 @@
   <p class="eyebrow">LE DÉBAT N'A JAMAIS ÉTÉ CLOS</p>
   <h1>WHO IS THE<br><em>GREATEST</em> OF ALL TIME?</h1>
   <p class="intro">Deux légendes. Une seule question. À toi de trancher.</p>
+
+  <div class="amount-box">
+    <label for="voteAmount">CHOISIS LE MONTANT DE TON VOTE</label>
+    <input
+      type="number"
+      id="voteAmount"
+      name="voteAmount"
+      min="0.50"
+      max="1000"
+      step="0.01"
+      value="1.00"
+      inputmode="decimal"
+    >
+    <small>Montant libre de 0,50 € à 1 000 € · Paiement sécurisé</small>
+  </div>
 
   <div class="players">
 
